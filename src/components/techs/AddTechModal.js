@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import M from 'materialize-css/dist/js/materialize.min.js'
-
+import { addTech } from '../../actions/techActions';
 const AddTechModal = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const dispatch = useDispatch();
     const onSubmit = () => {
         if (firstName === '' || lastName === '') {
             M.toast({ html: 'Please enter the firstname and lastname' })
         } else {
+            const addTechObj = {
+                firstName,
+                lastName
+            }
+            dispatch(addTech(addTechObj));
+
+            M.toast({ html: `${firstName} ${lastName} was added to tech` });    
+
             setFirstName('');
             setLastName('');
         }
