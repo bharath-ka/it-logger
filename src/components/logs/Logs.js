@@ -1,24 +1,21 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import LogItem from './LogItem';
 import Preloader from '../layouts/PreLoader';
+import { getLogs } from '../../actions/logActions';
 
 const Logs = () => {
-    const [logs, setLogs] = useState([]);
-    const [loading, setLoading] = useState(false);
 
-    const getLogs = async () => {
-        setLoading(true);
-        const res = await fetch('/logs');
-        const data = await res.json();
-        setLogs(data);
-        setLoading(false);
-    }
+    const log = useSelector(state => state.log);
+    const { logs, loading } = log;
+    const dispatch = useDispatch();
     useEffect(() => {
-        getLogs();
+        dispatch(getLogs());
         //eslint-disable-next-line
-    }, [])
+    }, []);
+    
     return (
-        !loading ?
+        !loading && logs !== null ?
             <Fragment>
                 <ul className="collection with-header">
                     <li className="collection-header">

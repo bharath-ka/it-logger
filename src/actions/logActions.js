@@ -5,7 +5,7 @@ export const getLogs = () => async dispatch => {
         setLoading();
 
         const res = await fetch('/logs');
-        const data = res.json();
+        const data = await res.json();
         dispatch({
             type: GET_LOGS,
             payload: data
@@ -13,8 +13,8 @@ export const getLogs = () => async dispatch => {
     } catch (error) {
         dispatch({
             type: LOGS_ERROR,
-            payload: err.response.data
-        })
+            payload: error.response.data
+        });
     }
 
 }
