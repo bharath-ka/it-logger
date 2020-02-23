@@ -7,7 +7,7 @@ const TechSelectOptions = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getTechs());
-
+        //eslint-disable-next-line
     }, [])
     return (
         !loading && techs !== null && techs.map(t => <option key={t.id} value={`${t.firstName} ${t.firstName}`}>
